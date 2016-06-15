@@ -1,2 +1,6 @@
-# easy-job
-:fire::fire:2016互联网求职面试知识复习
+# easy-java
+Java面试题整理
+
+## 参与贡献
+
+加入组织，clone & push。
