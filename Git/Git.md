@@ -2,8 +2,10 @@
 
 ### 基本配置
 
+```sh
 git config --global user.name
 git config --global user.email
+```
 
 ### 创建版本库 mkdir -> pwd -> git init
 
@@ -48,10 +50,13 @@ rm b.txt 接下来：直接commit或者git checkout -- filename撤销
 创建SSHKey ssh-keygen -t rsa –C "932191671@qq.com"
 
 1.创建远程库 
+
 ```sh
 git remote add origin https://github.com/lemongjing/testgit.git
 ```
+
 把本地master分支的最新修改推送到
+
 ```sh
 github上 git push -u origin master
 ```
@@ -63,18 +68,20 @@ git clone
 
 每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。在Git里，这个分支叫主分支，即master分支。HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。 
 
-- 创建
+创建
 
 **git branch dev + git checkout dev = git checkout -b dev 创建并切换到dev**
 
-- 合并 
+合并
 
 在master分支下执行git merge dev然后删除dev 
+
 ```sh
 git branch -d dev
 ```
 
 总结
+
 ```sh
 查看分支：git branch
 
@@ -91,7 +98,13 @@ git branch -d dev
 
 1.如何解决冲突
 
-Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容，其中<<<HEAD是指主分支修改的内容，>>>>>fenzhi是指fenzhi上修改的内容，我们可以修改下如下后保存。
+Git用
+
+```sh
+<<<<<<<,=======,>>>>>>>
+```
+
+标记出不同分支的内容，其中<<<HEAD是指主分支修改的内容，>>>>>fenzhi是指fenzhi上修改的内容，我们可以修改下保存。
 
 2.分支管理策略
 
@@ -106,11 +119,14 @@ Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容，其中<<<HEAD�
 查看历史记录
 ```
 
-禁用fast-forward模式 
+禁用fast-forward模式
+
 ```sh
 git merge –-no-ff -m "注释" dev
 ```
+
 查看分支日志
+
 ```sh
 git log --graph --pretty=oneline --abbrev-commit
 ```
@@ -130,12 +146,15 @@ git log --graph --pretty=oneline --abbrev-commit
 ### 多人协作
 
 创建本地分支与远程分支的链接
+
 git branch --set-upstream-to=origin/<branch> dev
 
 例：
+
 ```sh
 git branch --set-upstream dev origin/dev
 ```
+
 提交
 git push origin dev
 拉取
@@ -158,4 +177,5 @@ git pull
 删除远程分支（两种方法）
 
 git push --delete origin dev
+
 git push origin :dev(冒号前面一个空格)
