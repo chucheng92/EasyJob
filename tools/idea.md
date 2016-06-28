@@ -45,6 +45,7 @@ alt + ctrl+left/right：切换上次编辑
 ### 运行调试
 F7/F8/F9分别对应Step into，Step over，Continue
 alt + shift + f10运行程序
+ctrl + shift + t 单元测试 
 shift + f10 运行tomcat
 shift + f9启动调试
 ctrl + f2停止
