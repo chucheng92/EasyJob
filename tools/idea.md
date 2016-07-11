@@ -20,6 +20,7 @@ ctrl + shift + z取消撤销
 alt + enter 重构代码
 ctrl + alt + L 格式化
 alt + insert 插入
+ctrl + shift + down/up 选中代码块移动
 
 ### 协作
 ctrl + k提交代码到SVN
@@ -27,14 +28,14 @@ ctrl + t更新代码
 
 ### 其他
 ctrl + B 跳转定义处
-ctrl + shift + B 进入实现类
+ctrl + alt + B 跳转实现
 ctrl + O 覆盖方法
 ctrl + I 实现方法
 alt + 1 project视图
 ctrl + e 最近文件
 alt + 7 显示所有方法
 alt + f12 系统终端
-alt + H 查看继承情况，查看类层次
+ctrl + H 查看继承情况，查看类层次
 ctrl + f12 当前类的方法
 Ctrl + Tab：切来切去
 Ctrl + W ：选你所想
@@ -47,8 +48,8 @@ F7/F8/F9分别对应Step into，Step over，Continue
 alt + shift + f10运行程序
 ctrl + shift + t 单元测试 
 shift + f10 运行tomcat
-shift + f9启动调试
-ctrl + f2停止
+shift + f9 启动调试
+ctrl + f2 停止
 
 ### 自定义
 垂直分屏 ctrl + num1
