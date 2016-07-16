@@ -10,3 +10,4 @@
 
 5. [缓存、缓存算法简介](http://tinymood.com/2016/06/16/cache-and-cache-algorithm.html)
 
+6. [Redis学习日记](http://tinymood.com/2016/07/09/learn-redis.html)
