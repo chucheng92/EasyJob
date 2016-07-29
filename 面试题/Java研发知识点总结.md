@@ -1103,6 +1103,10 @@ DOM、SAX、JDOM、DOM4J
 
 使用接口和抽象类，灵活性好，功能强大
 
+**10. Nginx相关**
+
+请参考我的[Nginx](../framework/nginx.md)
+
 ------
 
 ### 三、多线程和并发
@@ -2546,6 +2550,23 @@ Http响应报文：1.状态行 2.Http头 3.返回内容
 状态行：第一部分为Http版本，第二部分为响应状态码 第三部分为状态码的描述
 
 其中第三部分为状态码的描述，信息类100-199 响应成功200-299 重定向类300-399 客户端错误400-499 服务器端错误500-599
+
+常见的
+
+```
+100 continue 初始请求已接受，客户端应继续发送请求剩余部分
+200 OK
+202 Accepted 已接受，处理尚未完成 
+301 永久重定向
+302 临时重定向
+400 Bad Request
+403 Forbidden 资源不可用
+404 Not Found
+500 Internal Server Error 服务器错误
+502 Bad Gateway
+503 Service Unavailable 服务器负载过重
+504 Gateway Timeout 未能及时从远程服务器获得应答
+```
 
 Http头：响应头（Response Header），普通头（General Header）和实体头(Entity Header)
 
