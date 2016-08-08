@@ -2561,6 +2561,7 @@ Http响应报文：1.状态行 2.Http头 3.返回内容
 301 永久重定向
 302 临时重定向
 400 Bad Request
+401 Unauthorized
 403 Forbidden 资源不可用
 404 Not Found
 500 Internal Server Error 服务器错误
