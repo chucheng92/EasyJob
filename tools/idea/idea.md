@@ -21,6 +21,7 @@ alt + enter 重构代码
 ctrl + alt + L 格式化
 alt + insert 插入
 ctrl + shift + down/up 选中代码块移动
+ctrl + alt + t try块
 
 ### 协作
 ctrl + k提交代码到SVN
