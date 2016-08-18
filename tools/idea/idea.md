@@ -37,12 +37,13 @@ ctrl + e 最近文件
 alt + 7 显示所有方法
 alt + f12 系统终端
 ctrl + H 查看继承情况，查看类层次
+ctrl + f4 关闭当前文件
 ctrl + f12 当前类的方法
 Ctrl + Tab：切来切去
 Ctrl + W ：选你所想
 alt + f7：找类或方法的使用
 alt + left/right：切换
-alt + ctrl+left/right：切换上次编辑
+ctrl + alt + left/right：切换上次编辑
 
 ### 运行调试
 F7/F8/F9分别对应Step into，Step over，Continue
