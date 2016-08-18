@@ -132,7 +132,11 @@ get操作：
 
 定位HashEntry所使用的hash算法：int index = hash & (tab.length - 1);
 
-注：tab为HashEntry数组
+注：
+
+1\.tab为HashEntry数组
+
+2\.ConcurrentHashMap既不允许null key也不允许null value
 
 3.5 Collection 和 Collections的区别
 
@@ -145,7 +149,7 @@ Set集合类似于一个罐子，"丢进"Set集合里的多个对象之间没有
 
 3.7 HashMap的工作原理
 
-HashMap维护了一个Entry数组，Entry内部类有key,value，hash和next是个字段，其中next也是一个Entry类型。可以将Entry数组理解为一个个的散列桶。每一个桶实际上是一个单链表。当执行put操作时，会根据key的hashcode定位到相应的桶。遍历单链表检查该key是否已经存在，如果存在，覆盖该value，反之，新建一个新的Entry，并放在单链表的头部。当通过传递key调用get方法时，它再次使用key.hashCode()来找到相应的散列桶，然后使用key.equals()方法找出单链表中正确的Entry，然后返回它的值。
+HashMap维护了一个Entry数组，Entry内部类有key,value，hash和next四个字段，其中next也是一个Entry类型。可以将Entry数组理解为一个个的散列桶。每一个桶实际上是一个单链表。当执行put操作时，会根据key的hashcode定位到相应的桶。遍历单链表检查该key是否已经存在，如果存在，覆盖该value，反之，新建一个新的Entry，并放在单链表的头部。当通过传递key调用get方法时，它再次使用key.hashCode()来找到相应的散列桶，然后使用key.equals()方法找出单链表中正确的Entry，然后返回它的值。
 
 3.8 Map的实现类的介绍
 
