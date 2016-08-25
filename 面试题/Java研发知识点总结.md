@@ -2496,7 +2496,7 @@ SYN置1和FIN的报文段要消耗一个序号。
 
 客户端连接状态变迁：CLOSED -> 主动打开,发送SYN=1 -> SYN_SENT -> 收到服务器的SYN=1和ACK时,发送三次握手的最后一个ACK 
 -> ESTABLISHED -> 数据传送 -> 主动关闭 -> 发送FIN=1,等待确认ACK的到达 -> FIN_WAIT_1 -> 收到确认ACK后 -> FIN_WAIT_2
-->收到服务器发送的FIN=1报文，响应，发送四次挥手的的最后一个确认ACK -> 进入TIME_WAIT状态 
+-> 收到服务器发送的FIN=1报文，响应，发送四次挥手的的最后一个确认ACK -> 进入TIME_WAIT状态 
 -> 经过2倍报文寿命，TCP删除连接记录 -> 回到CLOSED状态 
 
 客户端状态：CLOSED - SYN_SENT- ESTABLISHED - FIN_WAIT_1 - FIN_WAIT_2 - TIME_WAIT - CLOSED
