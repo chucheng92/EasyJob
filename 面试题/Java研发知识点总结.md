@@ -1644,7 +1644,7 @@ Mark-Compact法：标记整理法。它的第一阶段与Mark-Sweep法一样，�
 
 **8. 内存分配**
 
-- 新生代 Survivor区的三部分 |Eden Space|From Space|To Space|，对象主要分配在新生代的Eden区
+- 新生代的三部分 |Eden Space|From Space|To Space|，对象主要分配在新生代的Eden区
 
 - 大对象直接进入老年代
 大对象比如大数组直接进入老年代，可通过虚拟机参数-XX：PretenureSizeThreshold参数设置
