@@ -8,4 +8,3 @@
 
 - 邮箱: xmusaber@163.com
 - QQ: 932191671
-- [微博](http://weibo.com/u/1662536394)
