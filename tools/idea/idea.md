@@ -44,6 +44,7 @@ Ctrl + W ：选你所想
 alt + f7：找类或方法的使用
 alt + left/right：切换
 ctrl + alt + left/right：切换上次编辑
+ctrl + alt + t 代码生成（如try catch）
 
 ### 运行调试
 F7/F8/F9分别对应Step into，Step over，Continue
