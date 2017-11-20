@@ -27,7 +27,7 @@
 - [x] HashMap允许空键值，而Hashtable不允许
 - [x] HashMap的iterator迭代器执行快速失败机制，也就是说在迭代过程中修改集合结构，除非调用迭代器自身的remove方法，否则以其他任何方式的修改都将抛出并发修改异常。而Hashtable返回的Enumeration不是快速失败的。
 
-注：`Fast-fail`机制:在使用迭代器的过程中有其它线程修改了集合对象结构或元素数量,都将抛出ConcurrentModifiedException，但是抛出这个异常是不保证的，我们不能编写依赖于此异常的程序。
+注：`Fast-fail`机制:在使用迭代器的过程中有其它线程修改了集合对象结构或元素数量,都将抛出ConcurrentModificationException，但是抛出这个异常是不保证的，我们不能编写依赖于此异常的程序。
 
 **2. java的线程安全**
 
