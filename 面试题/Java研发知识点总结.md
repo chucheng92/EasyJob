@@ -2,7 +2,7 @@
 
 ----------
 
-### 最近一次更新**2016年07月24日**
+### 最近一次更新**2017年12月08日**
 
 大纲
 ----
@@ -1299,7 +1299,7 @@ Busy spin 是一种在不释放 CPU 的基础上等待事件的技术。它经�
 
 **23. 用 Java 写一个线程安全的单例模式（Singleton）？**
 
-当我们说线程安全时，意思是即使初始化是在多线程环境中，仍然能保证单个实例。Java 中，使用枚举作为单例类是最简单的方式来创建线程安全单例模式的方式。参见我整理的单例的文章[6种单例模式的实现以及double check的剖析](http://tinymood.com/2016/02/06/singleton-comparasion.html)
+当我们说线程安全时，意思是即使初始化是在多线程环境中，仍然能保证单个实例。Java 中，使用枚举作为单例类是最简单的方式来创建线程安全单例模式的方式。参见我整理的单例的文章[6种单例模式的实现以及double check的剖析](http://taoxiaoran.top/2017/02/10/singleton.html)
 
 **24. Java 中，编写多线程程序的时候你会遵循哪些最佳实践？**
 
@@ -2737,10 +2737,10 @@ BSD：较为宽松的协议，包含两个变种BSD 2-Clause 和BSD 3-Clause，�
 
 ### 联系我
 
-- WebSite:[http://www.tinymood.com][1]
-- Mail: 932191671@qq.com
+- WebSite:[http://rannn.cc][1]
+- Mail: xmusaber@163.com
 
-作者 [_NoThankYou][2]       
+作者 [_NoThankYou][2]   
 
-[1]: http://www.tinymood.com   
+[1]: http://rannn.cc
 [2]: http://weibo.com/u/1662536394
