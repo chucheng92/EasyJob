@@ -1690,11 +1690,12 @@ GC相关
 -XX：PretenureSizeThreshold 大对象进入老年代的阈值
 -XX:MaxTenuringThreshold 晋升老年代的对象年龄
 
-收集器设置
--XX:+UseSerialGC:设置串行收集器
--XX:+UseParallelGC:设置并行收集器
--XX:+UseParalledlOldGC:设置并行年老代收集器
--XX:+UseConcMarkSweepGC:设置并发收集器
+收集器组合开关选项：
+-XX:+UseSerialGC Serial+SerialOld
+-XX:+UseParNewGC ParNew+SerialOld
+-XX:+UseParallelGC ParallelScavenge+SerialOld
+-XX:+UseConcMarkSweepGC ParNew+CMS+SerialOld
+-XX:+UseParallelOldGC ParallelScavenge+Parallel Old
 
 堆大小设置
 
