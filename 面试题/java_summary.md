@@ -42,7 +42,7 @@ Collection - List - Vector
 Collection - List - Vector - Stack
 Collection - Set - HashSet
 Collection - Set - TreeSet
-Collection - List - LinkedHashSet
+Collection - Set - LinkedHashSet
 Map - HashMap
 Map - TreeMap
 Map - HashTable
