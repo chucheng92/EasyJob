@@ -1,19 +1,18 @@
 ## Maven基础
 
-
-----------
-
-
 ### 1.什么是maven?
 Maven:基于项目对象模型pom的项目管理工具
 
 ### 2.常用命令
+
+```
 mvn compile 编译
 mvn test 测试
 mvn package 打包
 mvn clean 删除target目录
 mvn install 安装Jar包到本地仓库
 mvn archetype:generate 自动建立项目骨架
+```
 
 ### 3.目录结构
 
