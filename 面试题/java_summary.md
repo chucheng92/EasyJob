@@ -39,6 +39,7 @@ Vector、Stack、HashTable、ConcurrentHashMap、Properties
 Collection - List - ArrayList
 Collection - List - LinkedList
 Collection - List - Vector
+Collection - Queue - PriorityQueue
 Collection - List - Vector - Stack
 Collection - Set - HashSet
 Collection - Set - TreeSet
@@ -96,7 +97,7 @@ HashMap的缺点：主要是多线程同时put时，如果同时触发了rehash�
 
 ConcurrentHashMap的原理：
 
-HashTable容器在竞争激烈的并发环境下表现出效率低下的原因在于所有访问HashTable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。
+Hashtable容器在竞争激烈的并发环境下表现出效率低下的原因在于所有访问Hashtable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。
 
 ConcurrentHashMap的结构：
 
@@ -104,7 +105,7 @@ ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segme
 
 ConcurrentHashMap的构造、get、put操作：
 
-构造函数：传入参数分别为 1、初始容量，默认16 2、装载因子 装载因子用于rehash的判定，就是当ConcurrentHashMap中的元素大于装载因子*最大容量时进行扩容，默认0.75 3、并发级别 这个值用来确定Segment的个数，Segment的个数是大于等于concurrencyLevel的第一个2的n次方的数。比如，如果concurrencyLevel为12，13，14，15，16这些数，则Segment的数目为16(2的4次方)。默认值为static final int DEFAULT_CONCURRENCY_LEVEL = 16;。理想情况下ConcurrentHashMap的真正的并发访问量能够达到concurrencyLevel，因为有concurrencyLevel个Segment，假如有concurrencyLevel个线程需要访问Map，并且需要访问的数据都恰好分别落在不同的Segment中，则这些线程能够无竞争地自由访问（因为他们不需要竞争同一把锁），达到同时访问的效果。这也是为什么这个参数起名为“并发级别”的原因。默认16.
+构造函数：传入参数分别为 1、初始容量，默认16 2、装载因子 装载因子用于rehash的判定，就是当ConcurrentHashMap中的元素大于装载因子\*最大容量时进行扩容，默认0.75 3、并发级别 这个值用来确定Segment的个数，Segment的个数是大于等于concurrencyLevel的第一个2的n次方的数。比如，如果concurrencyLevel为12，13，14，15，16这些数，则Segment的数目为16(2的4次方)。默认值为static final int DEFAULT_CONCURRENCY_LEVEL = 16;。理想情况下ConcurrentHashMap的真正的并发访问量能够达到concurrencyLevel，因为有concurrencyLevel个Segment，假如有concurrencyLevel个线程需要访问Map，并且需要访问的数据都恰好分别落在不同的Segment中，则这些线程能够无竞争地自由访问（因为他们不需要竞争同一把锁），达到同时访问的效果。这也是为什么这个参数起名为“并发级别”的原因。默认16.
 
 初始化的一些动作：
 
@@ -136,7 +137,7 @@ get操作：
 
 1\.tab为HashEntry数组
 
-2\.ConcurrentHashMap既不允许null key也不允许null value
+2\.ConcurrentHashMap既不允许key为null 也不允许value为null
 
 3.5 Collection 和 Collections的区别
 
@@ -157,7 +158,7 @@ HashMap基于散列表来的实现，即使用hashCode()进行快速查询元素
 
 LinkedHashMap, 类似于HashMap,但是迭代遍历它时，保证迭代的顺序是其插入的次序，因为它使用链表维护内部次序。此外可以在构造器中设定LinkedHashMap，使之采用LRU算法。使没有被访问过的元素或较少访问的元素出现在前面，访问过的或访问多的出现在后面。这对于需要定期清理元素以节省空间的程序员来说，此功能使得程序员很容易得以实现。
 
-TreeMap, 是基于红黑树的实现。同时TreeMap实现了SortedMap接口，该接口可以确保键处于排序状态。所以查看“键”和“键值对”时，所有得到的结果都是经过排序的，次序由自然排序或提供的Comparator决定。SortedMap接口拥有其他额外的功能，如：返回当前Map使用的Comparator比较强，firstKey()，lastKey(),headMap(toKey),tailMap(fromKey)以及可以返回一个子树的subMap()方法等。
+TreeMap, 是基于红黑树的实现。同时TreeMap实现了SortedMap接口，该接口可以确保键处于排序状态。所以查看“键”和“键值对”时，所有得到的结果都是经过排序的，次序由自然排序或提供的Comparator决定。SortedMap接口拥有其他额外的功能，如：返回当前Map使用的Comparator比较器，firstKey()，lastKey(),headMap(toKey),tailMap(fromKey)以及可以返回一个子树的subMap()方法等。
 
 WeakHashMap，表示弱键映射，WeakHashMap 的工作与正常的 HashMap 类似，但是使用弱引用作为 key，意思就是当 key 对象没有任何引用时，key/value 将会被回收。
 
@@ -176,7 +177,7 @@ PriorityQueue 按优先级组织的队列，元素的出队次序由元素的自
 
 3.11 BlockingQueue
 
-Java.util.concurrent.BlockingQueue是一个队列，在进行获取元素时，它会等待队列变为非空；当在添加一个元素时，它会等待队列中的可用空间。BlockingQueue接口是Java集合框架的一部分，主要用于实现生产者-消费者模式。我们不需要担心等待生产者有可用的空间，或消费者有可用的对象，因为它都在BlockingQueue的实现类中被处理了。Java提供了集中BlockingQueue的实现，比如ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue,、SynchronousQueue等。
+java.util.concurrent.BlockingQueue是一个队列，在进行获取元素时，它会等待队列变为非空；当在添加一个元素时，它会等待队列中的可用空间。BlockingQueue接口是Java集合框架的一部分，主要用于实现生产者-消费者模式。我们不需要担心等待生产者有可用的空间，或消费者有可用的对象，因为它都在BlockingQueue的实现类中被处理了。Java提供了集中BlockingQueue的实现，比如ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue,、SynchronousQueue等。
 
 3.12 如何对一组对象进行排序
 
@@ -190,15 +191,15 @@ Java.util.concurrent.BlockingQueue是一个队列，在进行获取元素时，�
 
 **5. final关键字**
 
-`final`修饰的变量是常量，必须进行初始化，可以显示初始化，也可以通过构造进行初始化，如果不初始化编译会报错。
+`final`修饰的变量是常量，必须进行初始化，可以显示初始化，也可以通过构造函数进行初始化，如果不初始化编译会报错。
 
 **6. 接口与抽象类**
 
-6.1 一个子类只能继承一个抽象类,但能实现多个接口
-6.2 抽象类可以有构造方法,接口没有构造方法
-6.3 抽象类可以有普通成员变量,接口没有普通成员变量
-6.4 抽象类和接口都可有静态成员变量,抽象类中静态成员变量访问类型任意，接口只能public static final(默认)
-6.5 抽象类可以没有抽象方法,抽象类可以有普通方法,接口中都是抽象方法
+6.1 一个子类只能继承一个抽象类，但能实现多个接口
+6.2 抽象类可以有构造方法，接口没有构造方法
+6.3 抽象类可以有普通成员变量，接口没有普通成员变量
+6.4 抽象类和接口都可有静态成员变量，抽象类中静态成员变量访问类型任意，接口只能public static final(默认)
+6.5 抽象类可以没有抽象方法，抽象类可以有普通方法,接口中都是抽象方法
 6.6 抽象类可以有静态方法，接口不能有静态方法
 6.7 抽象类中的方法可以是public、protected;接口方法只有public abstract
 
@@ -348,7 +349,7 @@ $     				dollar 					行的结束位置
 ```
 举例:北京市(海淀区)(朝阳区)(西城区)
 
-Regex: .*(?=\\()
+Regex: .\*(?=\\()
 
 **模式和匹配器的典型调用次序**
 
@@ -386,8 +387,7 @@ boolean b = m.matches();
 6. 依赖抽象，不要依赖于具体类（依赖倒置DIP原则）
 7. 密友原则：只和朋友交谈（最少知识原则，迪米特法则）
 	
-	说明：一个对象应当对其他对象有尽可能少的了解，将方法调用保持在界限内，只调用属于以下范围的方法：
-	该对象本身（本地方法）对象的组件 被当作方法参数传进来的对象 此方法创建或实例化的任何对象
+说明：一个对象应当对其他对象有尽可能少的了解，将方法调用保持在界限内，只调用属于以下范围的方法：该对象本身（本地方法）对象的组件 被当作方法参数传进来的对象 此方法创建或实例化的任何对象
 
 8. 别找我（调用我） 我会找你（调用你）（好莱坞原则）
 9. 一个类只有一个引起它变化的原因（单一职责SRP原则）
@@ -420,7 +420,7 @@ boolean b = m.matches();
 
 **22. Java文件**
 
-.java文件可以包含多个类，唯一的限制就是：一个文件中只能有一个public类， 并且此public类必须与
+java文件可以包含多个类，唯一的限制就是：一个文件中只能有一个public类， 并且此public类必须与
 文件名相同。而且这些类和写在多个文件中没有区别。
 
 **23. Java移位运算符**
@@ -497,7 +497,7 @@ String接收bytes的构造器转成String，再Long.parseLong
 
 **37. 哪个类包含 clone 方法？是 Cloneable 还是 Object？**
 
-java.lang.Cloneable 是一个标示性接口，不包含任何方法，clone 方法在 object 类中定义。并且需要知道 clone() 方法是一个本地方法，这意味着它是由 c 或 c++ 或 其他本地语言实现的。
+java.lang.Cloneable 是一个标示性接口，不包含任何方法，clone 方法在 Object 类中定义。并且需要知道 clone() 方法是一个本地方法，这意味着它是由 c 或 c++ 或 其他本地语言实现的。
 
 **38. Java 中 ++ 操作符是线程安全的吗？**
 
@@ -522,7 +522,7 @@ b += a; // ok
 
 不行，你不能在没有强制类型转换的前提下将一个 double 值赋值给 long 类型的变量，因为 double 类型的范围比 long 类型更广，所以必须要进行强制转换。
 
-**41. 3*0.1 == 0.3 将会返回什么？true 还是 false？**
+**41. 3\*0.1 == 0.3 将会返回什么？true 还是 false？**
 
 false，因为有些浮点数不能完全精确的表示出来。
 
@@ -532,7 +532,7 @@ Integer 对象会占用更多的内存。Integer 是一个对象，需要存储�
 
 **43. 为什么 Java 中的 String 是不可变的（Immutable）？**
 
-Java 中的 String 不可变是因为 Java 的设计者认为字符串使用非常频繁，将字符串设置为不可变可以允许多个客户端之间共享相同的字符串。更详细的内容参见答案。
+Java 中的 String 不可变是因为 Java 的设计者认为字符串使用非常频繁，将字符串设置为不可变可以允许多个客户端之间共享相同的字符串。
 
 **44. 我们能在 Switch 中使用 String 吗？**
 
@@ -544,7 +544,7 @@ Java 中的 String 不可变是因为 Java 的设计者认为字符串使用非�
 
 **46. 枚举类**
 
-JDK1.5出现 每个枚举值都需要调用一次构造函数
+JDK1.5出现 每个枚举值都需要调用一次构造函数。
 
 **48. 什么是不可变对象（immutable object）？Java 中怎么创建一个不可变对象？**
 
@@ -586,7 +586,7 @@ PriorityQueue 保证最高或者最低优先级的的元素总是在队列头部
 
 **54. 用哪两种方式来实现集合的排序？**
 
-你可以使用有序集合，如 TreeSet 或 TreeMap，你也可以使用有顺序的的集合，如 list，然后通过 Collections.sort() 来排序。
+你可以使用有序集合，如 TreeSet 或 TreeMap，你也可以使用有顺序的的集合，如 List，然后通过 Collections.sort() 来排序。
 
 **55. Java 中怎么打印数组？**
 
@@ -606,7 +606,7 @@ HashSet 的内部采用 HashMap来实现。由于 Map 需要 key 和 value，所
 
 **59. 写一段代码在遍历 ArrayList 时移除一个元素？**
 
-该问题的关键在于面试者使用的是 ArrayList 的 remove() 还是 Iterator 的 remove()方法。这有一段示例代码，是使用正确的方式来实现在遍历的过程中移除元素，而不会出现 ConcurrentModificationException 异常的示例代码。
+该问题的关键在于面试者使用的是 ArrayList 的 remove() 还是 Iterator 的 remove()方法。后者是正确的方式不会出现 ConcurrentModificationException 异常。
 
 **60. 我们能自己写一个容器类，然后使用 for-each 循环吗？**
 
@@ -642,7 +642,7 @@ Comparable 接口用于定义对象的自然顺序，而 comparator 通常用于
 
 **66. 为什么在重写 equals 方法的时候需要重写 hashCode 方法？**
 
-因为有强制的规范指定需要同时重写 hashcode 与 equal 是方法，许多容器类，如 HashMap、HashSet 都依赖于 hashcode 与 equals 的规定。
+因为有强制的规范指定需要同时重写 hashcode 与 equal 方法，许多容器类，如 HashMap、HashSet 都依赖于 hashcode 与 equals 的规定。
 
 **67. “a==b”和”a.equals(b)”有什么区别？**
 
@@ -658,7 +658,7 @@ List和Set，如何保证Set不重复呢？通过迭代使用equals方法来判�
 
 2、hashcode重要吗
 
-对于数组、List集合就是一个累赘。而对于hashmap, hashset, hashtable就异常重要了。
+对于数组、List集合就是一个累赘。而对于HashMap, HashSet, Hashtable就异常重要了。
 
 3、equals方法遵循的原则
 
@@ -851,7 +851,7 @@ d）使用内存映射文件获取更快的 IO
 **101. Object有哪些公用方法？**
 
 clone equals hashcode wait notify notifyall finalize toString getClass
-除了clone和finalize其他均为公共方法。
+除了clone和finalize其他均为public方法。
 
 11个方法，wait被重载了两次
 
@@ -895,8 +895,11 @@ Java1.7开始支持，但实际这是一颗Java语法糖。除此之外，byte�
 1.概念：多态（Polymorphism）按字面的意思就是“多种状态，即同一个实体同时具有多种形式。一般表现形式是程序在运行的过程中，同一种类型在不同的条件下表现不同的结果。多态也称为动态绑定，一般是在运行时刻才能确定方法的具体执行对象。
 
 2.好处：
+
 1）将接口和实现分开，改善代码的组织结构和可读性，还能创建可拓展的程序。
+
 2）消除类型之间的耦合关系。允许将多个类型视为同一个类型。
+
 3）一个多态方法的调用允许有多种表现形式
 
 **106. Comparable和Comparator接口区别**
@@ -939,16 +942,15 @@ Channel是一个对象，可以通过它读取和写入数据。通道与流功�
 
 4.缓冲区Buffer
 
-在 NIO 库中，所有数据都是用缓冲区处理的。在 NIO 库中，所有数据都是用缓冲区处理的。
+在 NIO 库中，所有数据都是用缓冲区处理的。
 
+```
 Position: 表示下一次访问的缓冲区位置
 Limit: 表示当前缓冲区存放的数据容量。
 Capacity:表示缓冲区最大容量
-
 flip()方法:读写模式切换
-
 clear方法:它将 limit 设置为与 capacity 相同。它设置 position 为 0。
-
+```
 
 ------
 
@@ -960,7 +962,7 @@ clear方法:它将 limit 设置为与 capacity 相同。它设置 position 为 0
 
 ```sh
 Servlet (接口) 			-->      init|service|destroy方法
-GenericServlet(抽象类)  -->      与协议无关的Servlet
+GenericServlet(抽象类)  -->       与协议无关的Servlet
 HttpServlet(抽象类)		-->		 实现了http协议
 自定义Servlet			-->		 重写doGet/doPost
 ```
@@ -969,23 +971,22 @@ HttpServlet(抽象类)		-->		 实现了http协议
 
 1. 继承HttpServlet
 2. 重写doGet/doPost方法
-3. 在web.xml中注册servlet
+3. 在web.xml中注册Servlet
 
 1.3 Servlet生命周期
 
-1. `init`:仅执行一次,负责装载servlet时初始化servlet对象
-2. `service`:核心方法,一般get/post两种方式
-3. `destroy`:停止并卸载servlet,释放资源
+1. `init`:仅执行一次，负责装载servlet时初始化servlet对象
+2. `service`:核心方法，一般get/post两种方式
+3. `destroy`:停止并卸载servlet，释放资源
 
 1.4 过程
 
-1. 客户端request请求 -> 服务器检查Servlet实例是否存在 -> 若存在调用相应service方法
-2. 客户端request请求 -> 服务器检查Servlet实例是否存在 -> 若不存在装载Servlet类并创建实例 -> 调用init初始化 -> 调用service
-3. 加载和实例化、初始化、处理请求、服务结束
+1. 客户端request请求 -> 服务器检查Servlet实例是否存在 -> 若存在调用相应service方法 -> 服务结束
+2. 客户端request请求 -> 服务器检查Servlet实例是否存在 -> 若不存在装载Servlet类并创建实例 -> 调用init初始化 -> 调用service -> 服务结束
 
 1.5 doPost方法要抛出的异常:ServletExcception、IOException
 
-1.6 Servlet容器装载Servlet
+1.6 Servlet容器什么时候装载装载Servlet
 
 1. web.xml中配置load-on-startup启动时装载
 2. 客户首次向Servlet发送请求
@@ -1025,10 +1026,10 @@ HttpSession session = request.getSession(boolean create)
 JSP对象 				怎样获得
 ```
 1. out				->		response.getWriter
-2. request 		->		Service方法中的req参数
+2. request 		    ->		Service方法中的req参数
 3. response 		->		Service方法中的resp参数
-4. session 		->		request.getSession
-5. application 	->		getServletContext
+4. session 		    ->		request.getSession
+5. application 	    ->		getServletContext
 6. exception 		->		Throwable
 7. page  			->		this
 8. pageContext  	->		PageContext
@@ -1076,9 +1077,9 @@ Tomcat - **Container** - **Engine** - **Host** - **Servlet** - 多个Context(一
 
 DOM 解析器将整个 XML 文档加载到内存来创建一棵 DOM 模型树，这样可以更快的查找节点和修改 XML 结构，而 SAX 解析器是一个基于事件的解析器，不会将整个 XML 文档加载到内存。由于这个原因，DOM 比 SAX 更快，也要求更多的内存，但不适合于解析大的 XML 文件。
 
-**8. Java 中，Maven 和 ANT 有什么区别？**
+**8. Java 中，Maven 和 Ant 有什么区别？**
 
-虽然两者都是构建工具，都用于创建 Java 应用，但是 Maven 做的事情更多，在基于“约定优于配置”的概念下，提供标准的Java 项目结构，同时能为应用自动管理依赖（应用中所依赖的 JAR 文件）。
+虽然两者都是构建工具，都用于创建 Java 应用，但是 Maven 做的事情更多，在基于“约定优于配置”的概念下，提供标准的 Java 项目结构，同时能为应用自动管理依赖（应用中所依赖的 JAR 文件）。
 
 **9. 解析XML不同方式对比**
 
@@ -1156,7 +1157,7 @@ Java 语言提供了一种稍弱的同步机制,即`volatile`变量。但是vola
 
 **1. volatile简述**
 
-Java 语言提供了一种稍弱的同步机制,即`volatile`变量.用来确保将变量的更新操作通知到其他线程,保证了新值能立即同步到主内存,以及每次使用前立即从主内存刷新。 当把变量声明为volatile类型后,编译器与运行时都会注意到这个变量是共享的。`volatile`修饰变量,每次被线程访问时强迫其从主内存重读该值,修改后再写回。保证读取的可见性,对其他线程立即可见。`volatile`的另一个语义是禁止指令重排序优化。但是`volatile`并不保证原子性,也就不能保证线程安全。
+Java 语言提供了一种稍弱的同步机制,即`volatile`变量.用来确保将变量的更新操作通知到其他线程,保证了新值能立即同步到主内存,以及每次使用前立即从主内存刷新。 当把变量声明为volatile类型后,编译器与运行时都会注意到这个变量是共享的。`volatile`修饰变量,每次被线程访问时强迫其从主内存重读该值,修改后再写回。保证读取的可见性,对其他线程立即可见。`volatile`的另一个语义是禁止指令重排序优化。但是`volatile`并不保证原子性，也就不能保证线程安全。
 
 **2. Java 中能创建 volatile 数组吗？**
 
@@ -1216,15 +1217,15 @@ obj.wait(); // (Releases lock, and reacquires on wakeup)
 
 - `run方法`
 
-只是thread类的一个普通方法,若直接调用程序中依然只有主线程这一个线程,还要顺序执行,依然要等待run方法体执行完毕才可执行下面的代码。
+只是thread类的一个普通方法，若直接调用程序中依然只有主线程这一个线程，还要顺序执行，依然要等待run方法体执行完毕才可执行下面的代码。
 
 - `start方法`
 
-用start方法来启动线程,是真正实现了多线程。调用thread类的start方法来启动一个线程,此时线程处于就绪状态,一旦得到cpu时间片,就开始执行run方法。
+用start方法来启动线程,是真正实现了多线程。调用thread类的start方法来启动一个线程，此时线程处于就绪状态，一旦得到cpu时间片，就开始执行run方法。
 
 **11. ReadWriteLock(读写锁)**
 
-写写互斥 读写互斥 读读并发, 在读多写少的情况下可以提高效率 
+写写互斥 读写互斥 读读并发, 在读多写少的情况下可以提高效率。
 
 **12. resume(继续挂起的线程)和suspend(挂起线程)一起用**
 
@@ -1247,16 +1248,16 @@ obj.wait(); // (Releases lock, and reacquires on wakeup)
 
 16.1 ThreadLocal解决了变量并发访问的冲突问题
 
-当使用ThreadLocal维护变量时,ThreadLocal为每个使用该变量的线程提供独立的变量副本,每个线程都可以独立地改变自己的副本,而不会影响其它线程所对应的副本,是线程隔离的。线程隔离的秘密在于ThreadLocalMap类(ThreadLocal的静态内部类)
+当使用ThreadLocal维护变量时,ThreadLocal为每个使用该变量的线程提供独立的变量副本,每个线程都可以独立地改变自己的副本,而不会影响其它线程所对应的副本，是线程隔离的。线程隔离的秘密在于ThreadLocalMap类(ThreadLocal的静态内部类)
 
 16.2 与synchronized同步机制的比较
 
-首先,它们都是为了解决多线程中相同变量访问冲突问题。不过,在同步机制中,要通过对象的锁机制保证同一时间只有一个线程访问该变量。该变量是线程共享的, 使用同步机制要求程序缜密地分析什么时候对该变量读写, 什么时候需要锁定某个对象, 什么时候释放对象锁等复杂的问题,程序设计编写难度较大, 是一种“以时间换空间”的方式。
+首先，它们都是为了解决多线程中相同变量访问冲突问题。不过，在同步机制中，要通过对象的锁机制保证同一时间只有一个线程访问该变量。该变量是线程共享的, 使用同步机制要求程序缜密地分析什么时候对该变量读写，什么时候需要锁定某个对象， 什么时候释放对象锁等复杂的问题，程序设计编写难度较大, 是一种“以时间换空间”的方式。
 而ThreadLocal采用了以“以空间换时间”的方式。
 
 **17. 线程局部变量原理**
 
-当使用ThreadLocal维护变量时,ThreadLocal为每个使用该变量的线程提供独立的变量副本,每个线程都可以独立地改变自己的副本,而不会影响其它线程所对应的副本,是线程隔离的。线程隔离的秘密在于ThreadLocalMap类(ThreadLocal的静态内部类)
+当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，每个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本，是线程隔离的。线程隔离的秘密在于ThreadLocalMap类(ThreadLocal的静态内部类)
 
 线程局部变量是局限于线程内部的变量，属于线程自身所有，不在多个线程间共享。Java 提供 ThreadLocal 类来支持线程局部变量，是一种实现线程安全的方式。但是在管理环境下（如 web 服务器）使用线程局部变量的时候要特别小心，在这种情况下，工作线程的生命周期比任何应用变量的生命周期都要长。任何线程局部变量一旦在工作完成后没有释放，Java 应用就存在内存泄露的风险。
 
@@ -1277,7 +1278,9 @@ ThreadLocal是如何为每个线程创建变量的副本的：
 **18. JDK提供的用于并发编程的同步器**
 
 1. `Semaphore` Java并发库的Semaphore可以很轻松完成信号量控制，Semaphore可以控制某个资源可被同时访问的个数，通过 acquire() 获取一个许可，如果没有就等待，而 release() 释放一个许可。
+
 2. `CyclicBarrier` 主要的方法就是一个：await()。await()方法每被调用一次，计数便会减少1，并阻塞住当前线程。当计数减至0时，阻塞解除，所有在此CyclicBarrier上面阻塞的线程开始运行。
+
 3. `CountDownLatch` 直译过来就是倒计数(CountDown)门闩(Latch)。倒计数不用说，门闩的意思顾名思义就是阻止前进。在这里就是指 CountDownLatch.await() 方法在倒计数为0之前会阻塞当前线程。
 
 **19. 什么是 Busy spin？我们为什么要使用它？**
@@ -1291,7 +1294,6 @@ Busy spin 是一种在不释放 CPU 的基础上等待事件的技术。它经�
 **21. Swing 是线程安全的？**
 
 不是，Swing 不是线程安全的。你不能通过任何线程来更新 Swing 组件，如 JTable、JList 或 JPanel，事实上，它们只能通过 GUI 或 AWT 线程来更新。这就是为什么 Swing 提供 invokeAndWait() 和 invokeLater() 方法来获取其他线程的 GUI 更新请求。这些方法将更新请求放入 AWT 的线程队列中，可以一直等待，也可以通过异步更新直接返回结果。
-
 
 **22. 用 wait-notify 写一段代码来解决生产者-消费者问题？**
 
@@ -1372,11 +1374,13 @@ start方法先行发生于线程的每一个动作
 从概念上：
 
 进程：一个程序对一个数据集的动态执行过程，是分配资源的基本单位。
-线程：存在于进程内，是进程内的基本调度单位。共享进程的资源。
+
+线程：存在于进程内，是进程内的基本调度单位，共享进程的资源。
 
 从执行过程中来看：
 
 进程：拥有独立的内存单元，而多个线程共享内存，从而提高了应用程序的运行效率。
+
 线程：每一个独立的线程，都有一个程序运行的入口、顺序执行序列、和程序的出口。但是线程不能够独立的执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。
 
 从逻辑角度来看：（重要区别）
@@ -1399,7 +1403,7 @@ Runnable和 Callable 都代表那些要在不同的线程中执行的任务。Ru
 
 **33. Java 内存模型是什么**
 
-Java 内存模型规定和指引Java 程序在不同的内存架构、CPU 和操作系统间有确定性地行为。它在多线程的情况下尤其重要。Java内存模型对一个线程所做的变动能被其它线程可见提供了保证，它们之间是先行发生关系。这个关系定义了一些规则让程序员在并发编程时思路更清晰。
+Java 内存模型规定和指引 Java 程序在不同的内存架构、CPU 和操作系统间有确定性地行为。它在多线程的情况下尤其重要。Java内存模型对一个线程所做的变动能被其它线程可见提供了保证，它们之间是先行发生关系。这个关系定义了一些规则让程序员在并发编程时思路更清晰。
 
 线程内的代码能够按先后顺序执行，这被称为程序次序规则。
 
@@ -1915,7 +1919,6 @@ JDK1.4引入了NIO，这是一种基于通道和缓冲区的非阻塞IO模式，
 
 每个线程都有自己的栈内存，用于存储本地变量，方法参数和栈调用，一个线程中存储的变量对其它线程是不可见的。而堆是所有线程共享的一片公用内存区域。对象都在堆里创建，为了提升效率线程会从堆中弄一个缓存到自己的栈，如果多个线程使用该变量就可能引发问题，这时 volatile 变量就可以发挥作用了，它要求线程从主存中读取变量的值。
 
-
 **32. 双亲委派模型中的方法**
 
 findLoadedClass(),LoadClass(),findBootstrapClassOrNull(),findClass(),resolveClass()
@@ -1941,7 +1944,6 @@ BIO即同步阻塞IO，适用于连接数目较小且固定的架构，这种方
 NIO即同步非阻塞IO，适用于连接数目多且连接比较短的架构，比如聊天服务器，并发局限于应用中，编程比较复杂，JDK1.4开始支持。
 
 AIO即异步非阻塞IO，适用于连接数目多且连接比较长的架构，如相册服务器，充分调用OS参与并发操作，编程比较复杂，JDK1.7开始支持
-
 
 **34. 类加载器按照层次，从顶层到底层，分别加载哪些类？**
 
@@ -2051,7 +2053,9 @@ B+树是B树的变形，它把所有的data都放在叶子结点中，只将关�
 
 这涉及到磁盘存取原理、局部性原理和磁盘预读。
 
-先从B-Tree分析，根据B-Tree的定义，**可知检索一次最多需要访问h个节点。数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入。**为了达到这个目的，在实际实现B-Tree还需要使用如下技巧：
+先从B-Tree分析，根据B-Tree的定义，**可知检索一次最多需要访问h个节点。数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入。**
+
+为了达到这个目的，在实际实现B-Tree还需要使用如下技巧：
 
 **每次新建节点时，直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，加之计算机存储分配都是按页对齐的，就实现了一个node只需一次I/O。**
 
@@ -2184,17 +2188,11 @@ P、G右旋并将P、G变相反色。因为P取代之前黑G的位置，所以P�
 
 为什么选择跳表？
 
-目前经常使用的平衡数据结构有：B树，红黑树，AVL树，Splay Tree, Treep等。
-想象一下，给你一张草稿纸，一只笔，一个编辑器，你能立即实现一颗红黑树，或者AVL树
-出来吗？ 很难吧，这需要时间，要考虑很多细节，要参考一堆算法与数据结构之类的树，
-还要参考网上的代码，相当麻烦。
-用跳表吧，跳表是一种随机化的数据结构，目前开源软件 Redis 和 LevelDB 都有用到它，
-它的效率和红黑树以及 AVL 树不相上下，但跳表的原理相当简单，只要你能熟练操作链表，
-就能去实现一个 SkipList。
+目前经常使用的平衡数据结构有：B树，红黑树，AVL树，Splay Tree, Treep等。想象一下，给你一张草稿纸，一只笔，一个编辑器，你能立即实现一颗红黑树，或者AVL树出来吗？ 很难吧，这需要时间，要考虑很多细节，要参考一堆算法与数据结构之类的树，还要参考网上的代码，相当麻烦。用跳表吧，跳表是一种随机化的数据结构，目前开源软件 Redis 和 LevelDB 都有用到它，它的效率和红黑树以及 AVL 树不相上下，但跳表的原理相当简单，只要你能熟练操作链表，就能去实现一个 SkipList。
 
 跳跃表是一种随机化数据结构，基于并联的链表，其效率可比拟于二叉查找树(对于大多数操作需要O(log n)平均时间)，并且对并发算法友好。
 
-Skip list(跳表）是一种可以代替平衡树的数据结构，默认是按照Key值升序的。Skip list让已排序的数据分布在多层链表中，以0-1随机数决定一个数据的向上攀升与否，是一种“空间来换取时间”的一个算法，在每个节点中增加了指向下一层的指针，在插入、删除、查找时可以忽略一些不可能涉及到的结点，从而提高了效率。
+Skip list(跳表）是一种可以代替平衡树的数据结构，默认是按照Key值升序的。SkipList让已排序的数据分布在多层链表中，以0-1随机数决定一个数据的向上攀升与否，是一种“空间来换取时间”的一个算法，在每个节点中增加了指向下一层的指针，在插入、删除、查找时可以忽略一些不可能涉及到的结点，从而提高了效率。
 
 在Java的API中已经有了实现：分别是
 
@@ -2202,7 +2200,7 @@ ConcurrentSkipListMap(在功能上对应HashTable、HashMap、TreeMap) ；
 
 ConcurrentSkipListSet(在功能上对应HashSet)
 
-Skip list的性质
+SkipList的性质
 
 (1) 由很多层结构组成，level是通过一定的概率随机产生的
 
@@ -2504,13 +2502,13 @@ TCP报文段的发送时机：1.维持一个变量等于MSS，发送缓存达到
 上述的慢开始和拥塞避免算法是早期TCP使用的拥塞控制算法。因为有时TCP连接会在重传时因等待重传计时器的超时时间而空闲。为此在快重传中规定：只要发送端一连收到三个重复的ACK,即可断定分组丢失，不必等待重传计数器，立即重传丢失的报文。
 
 与快重传搭配使用的还有快恢复：当不使用快恢复时，发送端若发现网络拥塞就将拥塞窗口降为1，然后执行慢开始算法，这样的缺点是网络不能很快恢复到正常状态。快恢复是指当发送端收到3个重复的ACK时，执行乘法减小，ssthresh变为拥塞窗口值的一半。但是cwnd不是置为1，而是ssthresh+3xMSS。若收到的重复ACK
-为n(n > 3)，则cwnd=ssthresh+n*MSS.这样做的理由是基于发送端已经收到3个重复的ACK，它表明已经有3个分组离开了网络，它们不在消耗网络的资源。
+为n(n > 3)，则cwnd=ssthresh+n\*MSS.这样做的理由是基于发送端已经收到3个重复的ACK，它表明已经有3个分组离开了网络，它们不在消耗网络的资源。
 
 注意的是：在使用快恢复算法时，慢开始算法只在TCP连接建立时使用。
  
 TCP的重传机制
 
-每发送一个报文段，就对这个报文段设置一次计时器。新的重传时间=γ*旧的重传时间。
+每发送一个报文段，就对这个报文段设置一次计时器。新的重传时间=γ\*旧的重传时间。
 
 **TCP连接建立和释放的过程**
 
@@ -2741,7 +2739,7 @@ BSD：较为宽松的协议，包含两个变种BSD 2-Clause 和BSD 3-Clause，�
 - WebSite:[http://rannn.cc][1]
 - Mail: xmusaber@163.com
 
-作者 [_NoThankYou][2]   
+作者 [Rannn Tao][2]   
 
 [1]: http://rannn.cc
-[2]: http://weibo.com/u/1662536394
+[2]: http://github.com/lemonjing
