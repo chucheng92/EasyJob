@@ -3,7 +3,7 @@
 ## 编码相关
 
 - [基础算法和设计模式](https://github.com/it-interview/algorithm)
-- [剑指offe题解(Java & Scala)实现](https://github.com/Lemonjing/SwordOffer)
+- [剑指offer题解(Java & Scala)实现](https://github.com/Lemonjing/SwordOffer)
 
 ## 参与贡献
 
