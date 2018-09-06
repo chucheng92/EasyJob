@@ -768,4 +768,4 @@ The life cycle of a request in a Window has 3 steps:
 **问：能不能讲解一下Netty的串行无锁化设计，如何在串行和并行中达到最优？**
 >为了尽可能提升性能，Netty采用了串行无锁化设计，在IO线程内部进行串行操作，避免多线程竞争导致的性能下降。表面上看，串行化设计似乎CPU利用率不高，并发程度不够。但是，通过调整NIO线程池的线程参数，可以同时启动多个串行化的线程并行运行，这种局部无锁化的串行线程设计相比一个队列-多个工作线程模型性能更优。Netty的NioEventLoop读取到消息之后，直接调用ChannelPipeline的fireChannelRead(Object msg)，只要用户不主动切换线程，一直会由NioEventLoop调用到用户的Handler，期间不进行线程切换，这种串行化处理方式避免了多线程操作导致的锁的竞争，从性能角度看是最优的。
 
-> 引自 https://github.com/jackoll8868/net-learn/edit/master/netty.MD
+本文引自 https://github.com/jackoll8868/net-learn/edit/master/netty.MD
