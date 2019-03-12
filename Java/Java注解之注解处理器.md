@@ -8,7 +8,7 @@ Java使用Annotation接口来代表程序元素前面的注解，该接口是所
 
 1. Class：类定义
 2. Constructor：构造器定义
-3. Field：累的成员变量定义
+3. Field：类的成员变量定义
 4. Method：类的方法定义
 5. Package：类的包定义
 
