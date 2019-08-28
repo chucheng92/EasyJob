@@ -67,7 +67,7 @@
 
 ## 参与贡献
 
-加入组织，clone & push.
+提交你的Pull Request.
 
 ## 联系我
 
