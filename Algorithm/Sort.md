@@ -44,9 +44,9 @@ public void bubbleSort(int[] a) {
 				a[j+1] = temp;
 				flag = true;
 			}
-			if (flag == false) {
-				return;
-			}
+		}
+		if (flag == false) {
+			return;
 		}
 	}
 }
