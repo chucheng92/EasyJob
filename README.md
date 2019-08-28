@@ -67,7 +67,7 @@
 
 ## 参与贡献
 
-提交你的Pull Request.
+Test 提交你的Pull Request.
 
 ## 联系我
 
