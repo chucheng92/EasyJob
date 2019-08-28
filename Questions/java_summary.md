@@ -2154,7 +2154,7 @@ P、G右旋并将P、G变相反色。因为P取代之前黑G的位置，所以P�
 - 希尔排序[不稳定]
 复杂度 小于O(n^2) 平均 O(nlgn) 最差O(n^s)[1<s<2] 空间O(1)
 
-九大内部排序算法代码及性能分析参见我的[GitHub](https://github.com/it-interview/easy-job/tree/master/algorithm)
+九大内部排序算法代码及性能分析参见我的[GitHub](https://github.com/Lemonjing/EasyJob/blob/master/Algorithm)
 
 **4. 查找与散列**
 
@@ -2214,7 +2214,7 @@ SkipList的性质
 
 时间复杂度O(lgn) 最坏O(2lgn)
 
-Java实现参见我的GitHub Repo [Algorithm](https://github.com/it-interview/algorithm)
+Java实现参见我的GitHub Repo [Algorithm](https://github.com/lemonjing/algorithm)
 
 **6. AVL树**
 

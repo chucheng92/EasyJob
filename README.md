@@ -2,9 +2,9 @@
 
 ## 编码相关
 
-- [Java研发工程师知识点总结](https://github.com/it-interview/EasyJob/blob/master/Questions/java_summary.md)
-- [基础算法和设计模式](https://github.com/it-interview/algorithm)
-- [剑指offer题解(Java & Scala)实现](https://github.com/Lemonjing/SwordOffer)
+- [Java研发工程师知识点总结](https://github.com/lemonjing/EasyJob/blob/master/Questions/java_summary.md)
+- [基础算法和设计模式](https://github.com/lemonjing/algorithm)
+- [剑指offer题解(Java & Scala)实现](https://github.com/lemonjing/SwordOffer)
 
 ## 项目结构
 
