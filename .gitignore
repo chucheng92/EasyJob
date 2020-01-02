@@ -1,6 +1,5 @@
 /project
 .DS_Store
-/.idea/*
+.idea/
 *.class
-/target/*
-Git/*.pptx
+target/
