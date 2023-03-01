@@ -1740,6 +1740,7 @@ GC相关
 5. jhat(JVM Heap Analysis Tool)虚拟机堆转储快照分析工具
 6. jstack(Stack Trace for Java)Java堆栈跟踪工具
 7. HSDIS：JIT生成代码反汇编
+8. javap 查看字节码
 
 可视化
 1. JConsole(Java Monitoring and Management Console):Java监视与管理控制台
@@ -1869,7 +1870,7 @@ CPU热点：检查系统哪些方法占用的大量CPU时间
 
 **内存泄漏检查**
 
-年老代堆空间被占满
+老年代堆空间被占满
 
 持久代被占满
 

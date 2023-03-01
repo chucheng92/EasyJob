@@ -8,7 +8,7 @@
 
 ```java
 public void selectionSort(int[] a) {
-	if (null ==a || a.length < 2) {
+	if (null == a || a.length < 2) {
 		return;
 	}
 	for (int i = 1; i < a.length; i++) {
@@ -204,7 +204,7 @@ private void merge(int[] a, int low, int mid, int high) {
 
 ```
 
-### 堆排序
+### 堆排序 **不稳定**
 
 原理：利用堆的特性
 
